@@ -1,4 +1,6 @@
-public class Filme {
+package br.com.alura.screenmatch.modelos;
+
+public class Titulo {
     private String nome;
     private int anoDeLancamento;
     private boolean incluidoNoPlano;
@@ -7,12 +9,12 @@ public class Filme {
     private int totalDeAvaliacoes;
     private int duracaoEmMinutos;
 
-    public Filme(String nome, int anoDeLancamento) {
+    public Titulo(String nome, int anoDeLancamento) {
         this.nome = nome;
         this.anoDeLancamento = anoDeLancamento;
     }
 
-    public Filme() {
+    public Titulo() {
     }
 
     public String getNome() {
@@ -39,20 +41,8 @@ public class Filme {
         this.incluidoNoPlano = incluidoNoPlano;
     }
 
-    public double getNotasSomadas() {
-        return notasSomadas;
-    }
-
-    public void setNotasSomadas(double notasSomadas) {
-        this.notasSomadas += notasSomadas;
-    }
-
     public double getMediaAvaliacao() {
         return mediaAvaliacao;
-    }
-
-    public void setMediaAvaliacao(double mediaAvaliacao) {
-        this.mediaAvaliacao = getNotasSomadas() /3;
     }
 
     public int getTotalDeAvaliacoes() {
@@ -71,20 +61,24 @@ public class Filme {
         this.duracaoEmMinutos = duracaoEmMinutos;
     }
 
-    void exibeFicha(){
+    public void exibeFicha(){
         System.out.println("Nome: " + getNome());
         System.out.println("Ano de lançamento: " + getAnoDeLancamento());
-        System.out.println("Media das notas: " + getMediaAvaliacao());
-
+        if(getMediaAvaliacao() != 0.0) {
+            System.out.println("Media das notas: " + getMediaAvaliacao());
+        }
+        if(getTotalDeAvaliacoes() != 0) {
+            System.out.println("Total de avaliações: " + getTotalDeAvaliacoes());
+        }
     }
 
-    void somaNotas(double notas){
-        setNotasSomadas(notas);
+    public void somaNotas(double notas){
+        this.notasSomadas += notas;
         setTotalDeAvaliacoes(1);
-        mediaNotas(getNotasSomadas());
+        mediaNotas(this.notasSomadas);
     }
 
-    void mediaNotas(double nota){
-        setMediaAvaliacao(nota);
+    public void mediaNotas(double nota){
+        this.mediaAvaliacao = nota /3;
     }
 }
