@@ -6,6 +6,10 @@ public class Serie extends Titulo{
     private boolean aitva;
     private int minutosPorEpisodio;
 
+    public Serie(String nome, int anoDeLancamento) {
+        super(nome, anoDeLancamento);
+    }
+
     public int getTemporadas() {
         return temporadas;
     }
@@ -36,6 +40,11 @@ public class Serie extends Titulo{
 
     public void setMinutosPorEpisodio(int minutosPorEpisodio) {
         this.minutosPorEpisodio = minutosPorEpisodio;
+    }
+
+    @Override
+    public String toString() {
+        return "Série " + getNome() + " (" + getAnoDeLancamento() + ")";
     }
 
     @Override
