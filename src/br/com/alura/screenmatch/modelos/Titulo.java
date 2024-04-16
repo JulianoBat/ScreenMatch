@@ -1,11 +1,10 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.excecão.ErroDeConversaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo>{
-    @SerializedName("Title")
     private String nome;
-    @SerializedName("Year")
     private int anoDeLancamento;
     private boolean incluidoNoPlano;
     private double notasSomadas;
@@ -19,11 +18,12 @@ public class Titulo implements Comparable<Titulo>{
         this.anoDeLancamento = anoDeLancamento;
     }
 
-    public Titulo() {
-    }
-
     public Titulo(TituloOmdb meuTituloOmdb) {
         this.nome = meuTituloOmdb.title();
+
+        if(meuTituloOmdb.year().length() > 4) {
+            throw new ErroDeConversaoDeAnoException("Não consegui converter o ano porque tem mais de 04 caracteres.");
+        }
         this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0,2));
     }
@@ -40,24 +40,8 @@ public class Titulo implements Comparable<Titulo>{
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public int getAnoDeLancamento() {
         return anoDeLancamento;
-    }
-
-    public void setAnoDeLancamento(int anoDeLancamento) {
-        this.anoDeLancamento = anoDeLancamento;
-    }
-
-    public boolean isIncluidoNoPlano() {
-        return incluidoNoPlano;
-    }
-
-    public void setIncluidoNoPlano(boolean incluidoNoPlano) {
-        this.incluidoNoPlano = incluidoNoPlano;
     }
 
     public double getMediaAvaliacao() {
@@ -103,8 +87,7 @@ public class Titulo implements Comparable<Titulo>{
 
     @Override
     public String toString() {
-        return "nome='" + nome + '\'' +
-                ", anoDeLancamento=" + anoDeLancamento + ", duração=" + duracaoEmMinutos;
+        return "(nome = " + nome + ", anoDeLancamento = " + anoDeLancamento + ", duração = " + duracaoEmMinutos + ") ";
     }
 
     @Override
